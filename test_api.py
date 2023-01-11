@@ -1,19 +1,21 @@
 # %%
-import requests
-import json
-from PIL import Image
 import io
+import json
+from pprint import pprint
+
+import requests
+from PIL import Image
 
 # %%
-response = requests.post("http://127.0.0.1:5000")
+response = requests.post("http://127.0.0.1:8000")
 response.raise_for_status
 # %%
-print(json.loads(response.content.decode("utf8")))
+pprint(json.loads(response.content.decode("utf8")))
 # %%
-file = {"image": open("sample.jpg", "rb")}
-headers = {"type": "multipart/image"}
-URL = "http://127.0.0.1:5000"
-filter = "contour"
+file = {"img": open("sample.jpg", "rb")}
+headers = {"type": "multipart/form-data"}
+URL = "http://127.0.0.1:8000"
+filter = "blur"
 
 response = requests.post(f"{URL}/{filter}", headers=headers, files=file)
 response.raise_for_status
